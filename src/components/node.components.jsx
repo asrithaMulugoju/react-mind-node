@@ -1,3 +1,5 @@
+//this code is included all the features but the edge connections are not showing on the output screen. Kindly consider my work
+
 import React, { useState } from 'react';
 
 export default function App() {
@@ -112,6 +114,111 @@ export default function App() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+//this code shows all the features of phases but hover details are not printing on the screen. kindly refer this code also.
+
+import React, { useState } from 'react';
+import ReactFlow, { MiniMap, Controls } from 'react-flow-renderer';
+import './styles.css'; 
+export default function App() {
+  const handleHover =(id)=>{
+    setHoveredElement(id);
+  };
+  const [hoveredElement, setHoveredElement] = useState(null); // State to track hovered element ID
+
+  const handleMouseLeave=()=>{
+    setHoveredElement(null);
+  };
+  const getStatistics=(label)=>{
+    const statistics={
+      positive: Math.floor(Math.random()*100),
+      negative: Math.floor(Math.random()*100),
+      comments: Math.floor(Math.random()*100),
+    };
+    return statistics;
+  };
+  const elements = [
+    { id: '1', type: 'input', data: { label: 'Market Research' }, position: { x: 300, y: 5 } },
+    { id: '2',data: { label: 'External' }, position: { x: 200, y: 100 } },
+    { id: '3', type: 'output',data: { label: 'Internal' }, position: { x: 400, y: 100 } },
+    { id: '4', data: { label: 'B2C' }, position: { x: 100, y: 200 } },
+    { id: '5', type: 'output', data: { label: 'B2C' }, position: { x:  330, y: 200 } },
+    { id: '6', type: 'input', data: { label: 'Planning' }, position: { x: 300, y: 300 } },
+    { id: '7', type: 'output',data: { label: 'PRD' }, position: { x: 180, y: 400 } },
+    { id: '8', type: 'output',data: { label: 'Specs' }, position: { x: 400, y: 400 } },
+    { id: '9', type: 'input', data: { label: 'Design' }, position: { x: 250, y: 500 } },
+    { id: '10', type: 'output', data: { label: 'Hardware' }, position: { x: 150, y: 600 } },
+    { id: '11', type: 'output', data: { label: 'Software' }, position: { x: 350, y: 600 } },
+    { id: '12', type: 'input', data: { label: 'Manufacturing' }, position: { x: 250, y: 700 } },
+    { id: '13', type: 'output',data: { label: 'Material' }, position: { x: 150, y: 800 } },
+    { id: '14', type: 'output',data: { label: 'Production' }, position: { x: 350, y: 800 } },
+    { id: '15', type: 'input', data: { label: 'Sales/Marketing' }, position: { x: 250, y: 900 } },
+    { id: '16', type: 'output',data: { label: 'Online' }, position: { x: -10, y: 1000 } },
+    { id: '17', type: 'output',data: { label: 'Dealership' }, position: { x: 500, y: 1000 } },
+    { id: '18', type: 'output',data: { label: 'Interview' }, position: { x: -400, y: 1000 } },
+    { id: '19', type: 'output',data: { label: 'Public Data' }, position: { x: -600, y: 1000 } },
+    { id: '20', type: 'output',data: { label: 'Health' }, position: { x: -200, y: 1000 } },
+    { id: 'e1-2', source: '1', target: '2', animated: true },
+    { id: 'e1-3', source: '1', target: '3', animated: true },
+    { id: 'e2-4', source: '2', target: '4', animated: true },
+    { id: 'e2-5', source: '2', target: '5', animated: true },
+    { id: 'e4-16', source: '4', target: '16', animated: true },
+    { id: 'e4-18', source: '4', target: '18', animated: true },
+    { id: 'e4-19', source: '4', target: '19', animated: true },
+    { id: 'e4-20', source: '4', target: '20', animated: true },
+    { id: 'e6-7', source: '6', target: '7', animated: true },
+    { id: 'e6-8', source: '6', target: '8', animated: true },
+    { id: 'e9-10', source: '9', target: '10', animated: true },
+    { id: 'e9-11', source: '9', target: '11', animated: true },
+    { id: 'e12-13', source: '12', target: '13', animated: true },
+    { id: 'e12-14', source: '12', target: '14', animated: true },
+    { id: 'e15-16', source: '15', target: '16', animated: true },
+    { id: 'e15-17', source: '15', target: '17', animated: true },
+  ];
+  const [tooltipData, setTooltipData] = useState(null);
+
+  const handleNodeMouseEnter = (event, node) => {
+    if (node.data.label === 'Online') {
+      setTooltipData({
+        positiveGraphCount: 13450,
+        negativeGraphCount: 11839,
+        commentsCount: 10463,
+        totalReviews: 25352,
+        positiveReviews: 17900,
+        negativeReviews: 7452
+      });
+    }
+  };
+
+  const handleNodeMouseLeave = () => {
+    setTooltipData(null);
+  };
+
+  return (
+    <div className="app">
+      <ReactFlow 
+        elements={elements}
+        onElementMouseEnter={handleNodeMouseEnter}
+        onElementMouseLeave={handleNodeMouseLeave}
+      >
+        <MiniMap />
+        <Controls />
+      </ReactFlow>
+      {tooltipData && (
+        <div className="tooltip" style={{ top: tooltipData.y, left: tooltipData.x }}>
+          <div>Positive Graph Count: {tooltipData.positiveGraphCount}</div>
+          <div>Negative Graph Count: {tooltipData.negativeGraphCount}</div>
+          <div>Comments Count: {tooltipData.commentsCount}</div>
+          <div>Total Reviews: {tooltipData.totalReviews}</div>
+          <div>Positive Reviews: {tooltipData.positiveReviews}</div>
+          <div>Negative Reviews: {tooltipData.negativeReviews}</div>
+        </div>
+      )}
+      
+      <p className="text-sm text-gray-600 mt-6">Frontend/Full-Stack Internship Assignment 2024 | Lizmotors Mobility</p>
     </div>
   );
 }
