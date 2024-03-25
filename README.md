@@ -43,7 +43,9 @@ npm install
 npm start
 ```
 
-5. Open your browser and visit [http://localhost:3000](http://localhost:3000) to view the application.
+5. Open your browser and visit [http://localhost:3000](http://localhost:3000) to view the application. This app can show you stats for each label.
+
+6. Open your browser and visit [http://localhost:3000/](http://localhost:3000/) to view this application. This app can show you animated edges connected to the nodes i.e each label.
 
 ## Usage
 
